@@ -48,7 +48,7 @@ event.df <- data.frame(
   event_date = "2024-01-15",
   actor1 = "France",
   actor2 = "Russia",
-  notes = "France’s foreign ministry said Tuesday that Russia’s military
+  description = "France’s foreign ministry said Tuesday that Russia’s military
   intelligence has long orchestrated cyberattacks on French entities."
 )
 
@@ -58,7 +58,7 @@ the nature of interaction between actors using these categories: 'verbal coopera
 
 user.template <- "Event date: {{event_date}}
 Actors: {{actor1}} and {{actor2}}
-Description: {{notes}}
+Description: {{description}}
 
 Classify this interaction as one of: verbal cooperation, material cooperation,
 verbal conflict, or material conflict. Respond with only the classification."
@@ -67,7 +67,7 @@ getGptDataAnnotation(
   data.row = event.df,
   sys.prompt = sys.prompt,
   user.prompt.template = user.template,
-  prompt.fields = c("event_type", "event_date", "actor1", "actor2", "notes"),
+  prompt.fields = c("event_date", "actor1", "actor2", "description"),
   gpt.model = "gpt-4o-mini",
   api.token = "your_token"
 )
