@@ -1,3 +1,4 @@
+
 #' Get GPT Data Annotation for a Single Row
 #'
 #' Processes a single row of data through GPT to add annotations, classifications,
@@ -6,15 +7,26 @@
 #'
 #' @param data.row A single row data frame with data to process
 #' @param sys.prompt System prompt for the GPT chat
-#' @param user.prompt.template User prompt template with {{field}} placeholders
-#' @param prompt.fields Character vector of field names to use in the prompt
+#' @param user.prompt.template User prompt template with {{field}} placeholders.
+#'   Uses glue package syntax for string interpolation. See \code{?glue::glue}
+#'   for template formatting details and advanced features.
+#' @param prompt.fields Character vector of field names to use in the prompt.
+#'   Must match the placeholder names in user.prompt.template (without braces).
 #' @param gpt.model Model identifier string
 #' @param api.token API token for authentication
-#' @param api.base.url Base URL for the API (default: JRC endpoint)
+#' @param api.base.url Base URL for the API endpoint
 #' @param temperature Temperature parameter for the model (default: 0)
 #'
 #' @return The input row with added llm_response, model, api_call_timestamp,
-#'   and error columns
+#'   and error columns. If an error occurs, llm_response will be NA and error
+#'   will be TRUE with details in error_message column.
+#'
+#' @details
+#' The user.prompt.template parameter uses the glue package for string
+#' interpolation. Field names should be enclosed in double braces: {{field_name}}.
+#' The glue package supports advanced formatting options including conditional
+#' text, loops, and custom formatting functions. For complete documentation
+#' on template syntax, see the glue package manual: \code{vignette("glue")}.
 #'
 #' @examples
 #' \dontrun{
@@ -23,7 +35,7 @@
 #'   event_date = "2024-01-15",
 #'   actor1 = "France",
 #'   actor2 = "Russia",
-#'   description = "France’s foreign ministry said Tuesday that Russia’s military
+#'   description = "France's foreign ministry said Tuesday that Russia's military
 #'   intelligence has long orchestrated cyberattacks on French entities."
 #' )
 #'
@@ -57,7 +69,7 @@ getGptDataAnnotation <- function(data.row,
                                  prompt.fields,
                                  gpt.model,
                                  api.token,
-                                 api.base.url = "https://api-gpt.jrc.ec.europa.eu/",
+                                 api.base.url,
                                  temperature = 0) {
 
   # Input validation
