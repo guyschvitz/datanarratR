@@ -1,0 +1,54 @@
+# History files
+.Rhistory
+.Rapp.history
+
+# Session data
+.RData
+.Ruserdata
+
+# RStudio files
+.Rproj.user/
+*.Rproj
+
+# Build output
+.Rcheck/
+.Rbuildignore
+*.tar.gz
+
+# Docs (if generated locally)
+docs/
+*.html
+*.pdf
+
+# Coverage / testing / CI
+covr*.xml
+tests/testthat.Rout*
+*.log
+
+# Vignettes (intermediate files)
+vignettes/*.html
+vignettes/*.pdf
+vignettes/*.R
+
+# Cache or temporary files
+*.swp
+*.tmp
+*.bak
+*.log
+*.out
+
+# pkgdown site (if generated locally)
+docs/
+_site/
+
+# MacOS system files
+.DS_Store
+
+# Windows thumbnail cache
+Thumbs.db
+
+# Node (if using any frontend build tools)
+node_modules/
+
+# VSCode settings (optional)
+.vscode/
