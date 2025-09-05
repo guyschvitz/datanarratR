@@ -175,8 +175,8 @@ getGptDataAnnotation <- function(data.row,
       prompt.values.ls <- as.list(data.row[, prompt.fields, drop = FALSE])
 
       usr.prompt <- glue::glue(
-        .x = user.prompt.template,
-        .envir = prompt.values.ls
+        user.prompt.template,
+        .envir = list2env(prompt.values.ls)
       )
 
       # Initialize chat with system prompt

@@ -16,7 +16,7 @@
 #'   for chunk summarization
 #' @param user.prompt.stage1 Character string containing the user prompt
 #'   template for chunk summarization (default: "Please summarize the following
-#'   events:\n\n{text}")
+#'   events: {text}")
 #' @param system.prompt.stage2 Character string containing the system prompt
 #'   for final consolidation
 #' @param user.prompt.stage2 Character string containing the user prompt
@@ -79,9 +79,9 @@ getGptLongTextSummary <- function(text.vec,
                                   gpt.base.url = "https://api.openai.com",
                                   gpt.model = "gpt-4o-mini",
                                   system.prompt.stage1,
-                                  user.prompt.stage1 = "Please summarize the following events{period_context}:\n\n{text}",
+                                  user.prompt.stage1 = "Please summarize the following events{period_context}: {text}",
                                   system.prompt.stage2,
-                                  user.prompt.stage2 = "Please provide a consolidated summary of these summaries{period_context}:\n\n{text}",
+                                  user.prompt.stage2 = "Please provide a consolidated summary of these summaries{period_context}: {text}",
                                   period.label = NULL,
                                   max.input.tokens = 120000,
                                   gpt.temperature = 0,

@@ -11,7 +11,7 @@ getGptDataAnnotation(
   prompt.fields,
   gpt.model,
   api.token,
-  api.base.url = "https://api-gpt.jrc.ec.europa.eu/",
+  api.base.url,
   temperature = 0
 )
 }
@@ -20,26 +20,37 @@ getGptDataAnnotation(
 
 \item{sys.prompt}{System prompt for the GPT chat}
 
-\item{user.prompt.template}{User prompt template with {{field}} placeholders}
+\item{user.prompt.template}{User prompt template with {{field}} placeholders.
+Uses glue package syntax for string interpolation. See \code{?glue::glue}
+for template formatting details and advanced features.}
 
-\item{prompt.fields}{Character vector of field names to use in the prompt}
+\item{prompt.fields}{Character vector of field names to use in the prompt.
+Must match the placeholder names in user.prompt.template (without braces).}
 
 \item{gpt.model}{Model identifier string}
 
 \item{api.token}{API token for authentication}
 
-\item{api.base.url}{Base URL for the API (default: JRC endpoint)}
+\item{api.base.url}{Base URL for the API endpoint}
 
 \item{temperature}{Temperature parameter for the model (default: 0)}
 }
 \value{
 The input row with added llm_response, model, api_call_timestamp,
-  and error columns
+  and error columns. If an error occurs, llm_response will be NA and error
+  will be TRUE with details in error_message column.
 }
 \description{
 Processes a single row of data through GPT to add annotations, classifications,
 or other derived information. Useful for enhancing event datasets with
 custom categories before performing narrative analysis.
+}
+\details{
+The user.prompt.template parameter uses the glue package for string
+interpolation. Field names should be enclosed in double braces: {{field_name}}.
+The glue package supports advanced formatting options including conditional
+text, loops, and custom formatting functions. For complete documentation
+on template syntax, see the glue package manual: \code{vignette("glue")}.
 }
 \examples{
 \dontrun{
@@ -48,7 +59,7 @@ event.df <- data.frame(
   event_date = "2024-01-15",
   actor1 = "France",
   actor2 = "Russia",
-  description = "France’s foreign ministry said Tuesday that Russia’s military
+  description = "France's foreign ministry said Tuesday that Russia's military
   intelligence has long orchestrated cyberattacks on French entities."
 )
 
