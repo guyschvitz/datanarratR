@@ -1,4 +1,3 @@
-
 #' Get GPT Data Annotation for a Single Row
 #'
 #' Processes a single row of data through GPT to add annotations, classifications,
@@ -165,6 +164,14 @@ getGptDataAnnotation <- function(data.row,
     stop(
       "Template contains placeholders not specified in 'prompt.fields': ",
       paste(unused.in.template, collapse = ", ")
+    )
+  }
+
+  # Check if any prompt fields have NA values
+  if (any(sapply(data.row[, prompt.fields], is.na))){
+    stop(
+      "NA value detected in one of the following prompt fields: ",
+      paste(sQuote(prompt.fields), collapse = ", "), "."
     )
   }
 
